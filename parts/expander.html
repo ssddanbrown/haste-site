@@ -1,0 +1,17 @@
+<div class="expander">
+    <div class="header">
+        <span class="open">-</span><span class="close">+</span>
+        <h4>{{title}}</h4>
+    </div>
+    <div class="body">
+       {{content}}
+    </div>
+</div>
+<script>
+    (function() {
+        const header = Array.from(document.querySelectorAll('div.expander > .header')).pop();
+        header.addEventListener('click', event => {
+            header.parentElement.classList.toggle('open');
+        });
+    })();
+</script>

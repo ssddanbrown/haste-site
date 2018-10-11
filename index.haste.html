@@ -1,0 +1,178 @@
+<t:layouts.base>
+	
+	
+	<section class="hero text-center">
+		<h1>H.A.S.T.E</h1>
+
+		<h2>HTML Awesomely Simple Templating Engine</h2>
+	</section>
+
+
+	<section class="bg-light">
+		<div class="container">
+			
+			<div class="intro-links">
+				<a href="https://github.com/ssddanbrown/haste">GitHub Page</a>
+				<a id="latest-release" href="https://github.com/ssddanbrown/haste/releases/latest">Latest Release</a>
+			</div>
+
+		</div>
+	</section>
+
+	<script>
+        fetch('https://api.github.com/repos/ssddanbrown/haste/releases/latest')
+            .then(resp => resp.json())
+            .then(data => {
+                document.getElementById('latest-release').textContent = `Latest Release (${data.tag_name})`;
+                const downloadLinks = document.getElementById('download-links');
+                for (let asset of data.assets) {
+                    const assetEl = document.createElement('a');
+                    const assetContainer = document.createElement('p');
+                    assetEl.textContent = asset.name;
+                    assetEl.setAttribute('download', asset.name);
+                    assetEl.href = asset.browser_download_url;
+                    downloadLinks.appendChild(assetContainer);
+                    assetContainer.append(assetEl);
+				}
+            });
+	</script>
+
+	<section>
+		<div class="container padded">
+			<p class="text-center text-large">
+				Haste is a simple command-line tool that brings templating and variables
+				to HTML through the use of simple, ease-to-learn, syntax.
+			</p>
+		</div>
+
+		<div class="container padded">
+			<t:parts.expander title="Download Links">
+				<div id="download-links" class="text-large"></div>
+			</t:parts.expander>
+		</div>
+
+		<!--TODO - Features-->
+
+		<div class="container padded">
+			<h3>Downloading & Running</h3>
+
+			<p class="text-large">
+				Simply expand the download links above or visit the <a href="https://github.com/ssddanbrown/haste/releases/latest">GitHub releases page</a> and download the correct release for your platform: <code>haste.exe</code> for windows, <code>haste-osx</code> for MacOS or <code>haste-linux</code> for linux platforms. Rename this to <code>haste</code> if on linux or MacOS.
+
+				<br><br>
+
+				Once downloaded, move this file into your haste build directory. Open a command/terminal window in the same folder and you can run haste like so:
+
+			</p>
+
+			<pre class="inline-code-section small">./haste</pre>
+
+			<p class="text-large">
+				By default haste will recursively look for any <code>*.haste.html</code> files in 
+				your currently working directory and build them to a <code>./dist</code> folder.
+
+				<br><br>
+
+				You can run haste in watch mode. This will auto-build haste files on change
+				and also serves the files on an auto-reloading webserver. To run in watch mode 
+				simply <nobr>add the <code>-w</code> option</nobr>:
+			</p>
+
+			<pre class="inline-code-section small">./haste -w</pre>
+
+			<t:parts.expander title="Command Line Options">
+				<table>
+					<thead>
+					<tr>
+						<th>Flag</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>-w</td>
+						<td></td>
+						<td>Watch file for changes and auto-compile on change. <br> Outputs to <code>&lt;filename&gt;.gen.html</code>.  <br> Starts a http server for file serving and opens the browser automatically.</td>
+					</tr>
+					<tr>
+						<td>-l</td>
+						<td></td>
+						<td>Disable livereload (When watching)</td>
+					</tr>
+					<tr>
+						<td>-p</td>
+						<td>8081</td>
+						<td>Port to listen on (When watching)</td>
+					</tr>
+					<tr>
+						<td>-d</td>
+						<td>./dist/</td>
+						<td>Output folder for generated content</td>
+					</tr>
+					<tr>
+						<td>-r</td>
+						<td>./</td>
+						<td>Relative root folder for template references</td>
+					</tr>
+					<tr>
+						<td>-v</td>
+						<td></td>
+						<td>Show verbose output</td>
+					</tr></tbody></table>
+			</t:parts.expander>
+
+		</div>
+	</section>
+
+
+	<section>
+		<div class="container padded">
+			<h3>Template Syntax</h3>
+
+			<p class="text-large">
+				Haste uses custom HTML tags for it's templating system. These define the path of the HTML file to be included. If haste parsed the HTML tag <code>&lt;t:parts.hello/&gt;</code> it will look for a <code>parts/hello.html</code> file, Relative to the root build directory. For Example:
+			</p>
+
+			<t:parts.code-example>
+<t:parts.code-block filename="index.haste.html">
+&lt;div&gt;
+  &lt;t:parts.hello-world/&gt;
+&lt;/div&gt;
+</t:parts.code-block>
+
+<t:parts.code-block filename="parts/hello-world.html">
+&lt;p&gt;Hello World!&lt;/p&gt;
+</t:parts.code-block>
+
+<t:parts.code-block filename="dist/index.html">
+&lt;div&gt;
+  &lt;p&gt;Hello World!&lt;/p&gt;
+&lt;/div&gt;
+</t:parts.code-block>
+			</t:parts.code-example>
+
+	</div>
+	</section>
+
+	<section>
+		<div class="container padded">
+			<h3>Variable Syntax</h3>
+
+			<p class="text-large">
+				Within haste you have variables which are used with curly braces. The value of the variable <code>hello</code> could be printed by placing <code>{&#123;hello}}</code> in your HTML file. Variables can be defined at the top of your HTML in the format <code>@hello=Well hello there</code>. For Example:
+			</p>
+
+			<t:parts.code-example class="dual">
+				<t:parts.code-block filename="index.haste.html">
+@greeting=Hello there fellow Human!
+&lt;p&gt;{&#123;greeting}}&lt;/p&gt;</t:parts.code-block>
+
+				<t:parts.code-block filename="dist/index.html">
+&lt;p&gt;Hello there fellow Human!&lt;/p&gt;</t:parts.code-block>
+			</t:parts.code-example>
+
+		</div>
+	</section>
+
+</t:layouts.base>

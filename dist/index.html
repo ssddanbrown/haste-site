@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Haste</title>
+
+
+	<style>
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+</style>
+	<style>
+:root {
+	--primary: #350740;
+	--light: #D8D4F2;
+}
+
+body {
+	font-family: 'Lato', sans-serif;
+	line-height: 1.4;
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Arvo', serif;
+}
+
+h3 {
+	font-size: 1.4rem;
+	text-align: center;
+	border-bottom: 4px dashed var(--primary);
+	display: inline-block;
+	margin-bottom: 1rem;
+}
+
+code {
+	font-family: monospace;
+}
+
+p > code {
+	color: #a52d2d;
+}
+
+table {
+	width: 100%;
+}
+table td, table th {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	padding: 6px 12px;
+}
+table th {
+	font-weight: bold;
+	background-color: #EEE;
+}
+
+a {
+	color: var(--primary);
+}
+
+.inline-code-section {
+	font-family: monospace;
+	display: block;
+	background-color: var(--light);
+	max-width: 500px;
+	margin: 1rem auto;
+	color: var(--primary);
+	text-align: left;
+	padding: .5rem 1rem;
+	font-size: 1.4rem;
+	border-radius: 5px;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+	position: relative;
+}
+
+.inline-code-section.small {
+	max-width: 320px;
+}
+
+.inline-code-section span.filename {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: var(--primary);
+	color: #FFF;
+	padding: 2px 1rem;
+	opacity: 0.7;
+	border-bottom: 1px solid #000;
+}
+
+.bg-light {
+	background-color: var(--light);
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-large {
+	font-size: 1.3rem;
+}
+
+.hero {
+	padding: 10vh 50px;
+	background-color: var(--primary);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%23612a6f' fill-opacity='0.4'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	color: #FFF;
+}
+
+.hero h1 {
+	font-size: 11vw;
+}
+
+.hero h2 {
+	font-size: 2.1vw
+}
+
+.container {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.padded {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+.intro-links {
+	text-align: center;
+}
+
+.intro-links a {
+	display: inline-block;
+	padding: 16px 32px;
+	font-size: 1.2rem;
+	color: var(--primary);
+}
+
+.example-result-grid {
+	display: grid;
+	grid-column-gap: 1rem;
+	margin: 1rem 0;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.example-result-grid.dual {
+	grid-template-columns: 1fr 1fr;
+}
+
+.example-result-grid h6 {
+	grid-row: 1; 
+}
+.example-result-grid h6 + h6 {
+	grid-column: -2/-1;
+}
+
+.example-result-grid pre {
+	grid-row: 2;
+	font-size: 1rem;
+	margin: .5rem 0;
+	overflow: hidden;
+}
+
+
+.expander {
+	border: 3px dashed #DDD;
+	margin-top: 2rem;
+}
+.expander > .body {
+	display: none;
+}
+.expander.open > .body {
+	display: block;
+}
+.expander .open {
+	display: none;
+}
+.expander.open .open {
+	display: inline;
+}
+.expander.open .close {
+	display: none;
+}
+.expander h4 {
+	margin: 12px 0;
+}
+.expander .header {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 30px 1fr;
+	cursor: pointer;
+	padding: 1rem 2rem;
+	user-select: none;
+}
+.expander .body {
+	padding: 0 2rem 2rem 2rem;
+}
+.expander:not(.open) .header:hover {
+	background-color: var(--light);
+}
+.expander .header > span {
+	font-weight: bold;
+	font-size: 2rem;
+	line-height: 1.4rem;
+	top: -3px;
+	position: relative;
+}
+</style>
+
+	<link href="https://fonts.googleapis.com/css?family=Arvo:400,400i|Lato:400,400i,700" rel="stylesheet">
+
+</head>
+<body>
+	
+
+		
+	
+	<section class="hero text-center">
+		<h1>H.A.S.T.E</h1>
+
+		<h2>HTML Awesomely Simple Templating Engine</h2>
+	</section>
+
+
+	<section class="bg-light">
+		<div class="container">
+			
+			<div class="intro-links">
+				<a href="https://github.com/ssddanbrown/haste">GitHub Page</a>
+				<a id="latest-release" href="https://github.com/ssddanbrown/haste/releases/latest">Latest Release</a>
+			</div>
+
+		</div>
+	</section>
+
+	<script>
+        fetch('https://api.github.com/repos/ssddanbrown/haste/releases/latest')
+            .then(resp => resp.json())
+            .then(data => {
+                document.getElementById('latest-release').textContent = `Latest Release (${data.tag_name})`;
+                const downloadLinks = document.getElementById('download-links');
+                for (let asset of data.assets) {
+                    const assetEl = document.createElement('a');
+                    const assetContainer = document.createElement('p');
+                    assetEl.textContent = asset.name;
+                    assetEl.setAttribute('download', asset.name);
+                    assetEl.href = asset.browser_download_url;
+                    downloadLinks.appendChild(assetContainer);
+                    assetContainer.append(assetEl);
+				}
+            });
+	</script>
+
+	<section>
+		<div class="container padded">
+			<p class="text-center text-large">
+				Haste is a simple command-line tool that brings templating and variables
+				to HTML through the use of simple, ease-to-learn, syntax.
+			</p>
+		</div>
+
+		<div class="container padded">
+			<div class="expander">
+    <div class="header">
+        <span class="open">-</span><span class="close">+</span>
+        <h4>Download Links</h4>
+    </div>
+    <div class="body">
+       				<div id="download-links" class="text-large"></div>
+			
+    </div>
+</div>
+<script>
+    (function() {
+        const header = Array.from(document.querySelectorAll('div.expander > .header')).pop();
+        header.addEventListener('click', event => {
+            header.parentElement.classList.toggle('open');
+        });
+    })();
+</script>
+		</div>
+
+		<!--TODO - Features-->
+
+		<div class="container padded">
+			<h3>Downloading & Running</h3>
+
+			<p class="text-large">
+				Simply expand the download links above or visit the <a href="https://github.com/ssddanbrown/haste/releases/latest">GitHub releases page</a> and download the correct release for your platform: <code>haste.exe</code> for windows, <code>haste-osx</code> for MacOS or <code>haste-linux</code> for linux platforms. Rename this to <code>haste</code> if on linux or MacOS.
+
+				<br><br>
+
+				Once downloaded, move this file into your haste build directory. Open a command/terminal window in the same folder and you can run haste like so:
+
+			</p>
+
+			<pre class="inline-code-section small">./haste</pre>
+
+			<p class="text-large">
+				By default haste will recursively look for any <code>*.haste.html</code> files in 
+				your currently working directory and build them to a <code>./dist</code> folder.
+
+				<br><br>
+
+				You can run haste in watch mode. This will auto-build haste files on change
+				and also serves the files on an auto-reloading webserver. To run in watch mode 
+				simply <nobr>add the <code>-w</code> option</nobr>:
+			</p>
+
+			<pre class="inline-code-section small">./haste -w</pre>
+
+			<div class="expander">
+    <div class="header">
+        <span class="open">-</span><span class="close">+</span>
+        <h4>Command Line Options</h4>
+    </div>
+    <div class="body">
+       				<table>
+					<thead>
+					<tr>
+						<th>Flag</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>-w</td>
+						<td></td>
+						<td>Watch file for changes and auto-compile on change. <br> Outputs to <code>&lt;filename&gt;.gen.html</code>.  <br> Starts a http server for file serving and opens the browser automatically.</td>
+					</tr>
+					<tr>
+						<td>-l</td>
+						<td></td>
+						<td>Disable livereload (When watching)</td>
+					</tr>
+					<tr>
+						<td>-p</td>
+						<td>8081</td>
+						<td>Port to listen on (When watching)</td>
+					</tr>
+					<tr>
+						<td>-d</td>
+						<td>./dist/</td>
+						<td>Output folder for generated content</td>
+					</tr>
+					<tr>
+						<td>-r</td>
+						<td>./</td>
+						<td>Relative root folder for template references</td>
+					</tr>
+					<tr>
+						<td>-v</td>
+						<td></td>
+						<td>Show verbose output</td>
+					</tr></tbody></table>
+			
+    </div>
+</div>
+<script>
+    (function() {
+        const header = Array.from(document.querySelectorAll('div.expander > .header')).pop();
+        header.addEventListener('click', event => {
+            header.parentElement.classList.toggle('open');
+        });
+    })();
+</script>
+
+		</div>
+	</section>
+
+
+	<section>
+		<div class="container padded">
+			<h3>Template Syntax</h3>
+
+			<p class="text-large">
+				Haste uses custom HTML tags for it's templating system. These define the path of the HTML file to be included. If haste parsed the HTML tag <code>&lt;t:parts.hello/&gt;</code> it will look for a <code>parts/hello.html</code> file, Relative to the root build directory. For Example:
+			</p>
+
+			<div class="example-result-grid ">
+    <h6>Input</h6>
+    <h6>Output</h6>
+<pre class="inline-code-section small">
+<span class="filename">index.haste.html</span>
+&lt;div&gt;
+  &lt;t:parts.hello-world/&gt;
+&lt;/div&gt;
+</pre>
+
+<pre class="inline-code-section small">
+<span class="filename">parts/hello-world.html</span>
+&lt;p&gt;Hello World!&lt;/p&gt;
+</pre>
+
+<pre class="inline-code-section small">
+<span class="filename">dist/index.html</span>
+&lt;div&gt;
+  &lt;p&gt;Hello World!&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+			
+</div>
+
+	</div>
+	</section>
+
+	<section>
+		<div class="container padded">
+			<h3>Variable Syntax</h3>
+
+			<p class="text-large">
+				Within haste you have variables which are used with curly braces. The value of the variable <code>hello</code> could be printed by placing <code>{&#123;hello}}</code> in your HTML file. Variables can be defined at the top of your HTML in the format <code>@hello=Well hello there</code>. For Example:
+			</p>
+
+			<div class="example-result-grid dual">
+    <h6>Input</h6>
+    <h6>Output</h6>
+				<pre class="inline-code-section small">
+<span class="filename">index.haste.html</span>
+@greeting=Hello there fellow Human!
+&lt;p&gt;{&#123;greeting}}&lt;/p&gt;
+</pre>
+
+				<pre class="inline-code-section small">
+<span class="filename">dist/index.html</span>
+&lt;p&gt;Hello there fellow Human!&lt;/p&gt;
+</pre>
+			
+</div>
+
+		</div>
+	</section>
+
+</body>
+</html>
